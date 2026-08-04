@@ -10,18 +10,73 @@ pygame.init()
 ventana = pygame.display.set_mode((constantes.ANCHO_VENTANA, constantes.ALTO_VENTANA))
 pygame.display.set_caption("Mi primer juego")
 
+#VARIABLES DE MOVIMIENTOS DE JUGADOR
+mover_arriba = False
+mover_abajo = False
+mover_izquierda = False
+mover_derecha = False
+
+#frame rate
+reloj = pygame.time.Clock()
+
 # Bucle principal del juego
 run = True
-while run:
+
+
+while run == True:
+
+#para los fps
+    reloj.tick(constantes.FPS)
+
+    ventana.fill(constantes.COLOR_BG)
+
+#calcular el movimiento del jugador
+
+    delta_x = 0
+    delta_y = 0
+
+    if mover_derecha== True:
+        delta_x = constantes.VELOCIDAD
+    if mover_izquierda==True:
+        delta_x = -constantes.VELOCIDAD
+    if mover_arriba == True:
+        delta_y = -constantes.VELOCIDAD
+    if mover_abajo == True:
+        delta_y = constantes.VELOCIDAD
+
+    #mover player
+    jugador.movimiento(delta_x, delta_y)
 
     jugador.dibujar(ventana)
+
     # Capturar eventos
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
 
+        if event.type ==  pygame.KEYDOWN:
+            if event.key == pygame.K_a:
+                mover_izquierda = True
+            if event.key == pygame.K_w:
+                mover_arriba = True
+            if event.key == pygame.K_d:
+                mover_derecha = True
+            if event.key == pygame.K_s:
+                mover_abajo = True
+
+#PARA CUANDO SE SUELTE LA TECLA
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_a:
+                mover_izquierda = False
+            if event.key == pygame.K_w:
+                mover_arriba = False
+            if event.key == pygame.K_d:
+                mover_derecha = False
+            if event.key == pygame.K_s:
+                mover_abajo = False
+                
+
     pygame.display.update()
-        
 
 # Salir de Pygame al cerrar la ventana
 pygame.quit()
