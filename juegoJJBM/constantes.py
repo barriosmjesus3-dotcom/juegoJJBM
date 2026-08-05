@@ -9,3 +9,6 @@ COLOR_BG = (0, 0, 20)
 
 FPS = 60
 VELOCIDAD = 5
+
+SCALA_PERSONAJE = 1.8
+
